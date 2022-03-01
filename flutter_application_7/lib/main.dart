@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Multi Screens',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       home: const MyHomePage(),
     );
@@ -25,45 +25,57 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  void selectScreen(BuildContext ctx , int n) {
-    Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (_) {
-      if(n==1)  return const Screen1();
-      return const Screen2();
-    }));
-  }
-
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("main screen" , style: TextStyle(fontSize: 20 , color: Colors.transparent,),),
+        title: const Text(
+          "main screen",
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: Center(
-        
         child: Column(
-         
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
-              
-              child:  const Text(
+              child: const Text(
                 "go to screen 1",
-                style: TextStyle(fontSize: 20 , color: Colors.transparent,),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
               ),
-              onTap: () => selectScreen(context,1),
+              onTap: () => selectScreen(context, 1),
+            ),
+            const SizedBox(
+              height: 24.0,
             ),
             InkWell(
               child: const Text(
                 "go to screen 2",
-                style: TextStyle(fontSize: 20 , color: Colors.transparent,),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
               ),
-              onTap: () => selectScreen(context,2),
+              onTap: () => selectScreen(context, 2),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void selectScreen(BuildContext ctx, int n) {
+    Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
+      if (n == 1) return const Screen1("information 1");
+      return const Screen2("information 2");
+    }));
   }
 }
