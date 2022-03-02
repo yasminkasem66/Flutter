@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_7/screen1.dart';
 import 'screen1.dart';
 import 'screen2.dart';
+import 'ui/reusable_widget/drawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Multi Screens',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
-      home: const MyHomePage(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Multi Screens',
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const MyHomePage(),
+          '/x1': (context) => const Screen1(),
+          '/x2': (context) => const Screen2(),
+        });
   }
 }
 
@@ -40,7 +45,7 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Column(
+      child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
@@ -69,13 +74,15 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+      drawerScrimColor: Colors.cyan,
+      drawer:  Mydrawer(),
     );
   }
 
   void selectScreen(BuildContext ctx, int n) {
-    Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-      if (n == 1) return const Screen1("information 1");
-      return const Screen2("information 2");
-    }));
+    Navigator.of(ctx).pushNamed(n == 1 ? '/x1' : '/x2', arguments: {
+      'id': n==1?10:20,
+      'title':n==1?"info1":"info2"
+    });
   }
 }
